@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FIZMATHEMATICS | Portfolio</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #08080d;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            background: rgba(8, 8, 13, 0.75);
+            backdrop-filter: blur(15px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+
+            z-index: 1000;
+
+            transition: 0.4s;
+        }
+
+        header.scrolled {
+            padding: 14px 8%;
+            background: rgba(8, 8, 13, 0.95);
+            box-shadow: 0 5px 30px rgba(0, 229, 255, 0.08);
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: bold;
+            color: #00e5ff;
+            text-shadow: 0 0 15px rgba(0,229,255,0.5);
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            position: relative;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 0;
+            height: 2px;
+            background: #00e5ff;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #00e5ff;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+
+            padding: 120px 8% 60px;
+
+            background:
+                linear-gradient(
+                    circle at 80% 20%,
+                    rgba(0,229,255,0.18),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    circle at 10% 90%,
+                    rgba(85,0,255,0.18),
+                    transparent 30%
+                ),
+                #08080d;
+
+            position: relative;
+        }
+
+        /* glowing orb */
+
+        .orb {
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            border-radius: 50%;
+
+            background: rgba(0,229,255,0.08);
+
+            filter: blur(30px);
+
+            animation: floating 5s ease-in-out infinite;
+
+            right: 10%;
+            top: 30%;
+        }
+
+        @keyframes floating {
+            0%,100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+
+        .hero-content {
+            max-width: 720px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero small {
+            color: #00e5ff;
+
+            letter-spacing: 3px;
+
+            opacity: 0;
+
+            animation: fadeUp 1s forwards;
+        }
+
+        .hero h1 {
+            font-size: clamp(45px, 8vw, 85px);
+
+            line-height: 1;
+
+            margin: 20px 0;
+
+            opacity: 0;
+
+            animation: fadeUp 1s 0.2s forwards;
+        }
+
+        .hero h1 span {
+            color: #00e5ff;
+
+            text-shadow:
+                0 0 10px rgba(0,229,255,0.4),
+                0 0 30px rgba(0,229,255,0.15);
+        }
+
+        .hero p {
+            color: #aaa;
+
+            font-size: 18px;
+
+            line-height: 1.7;
+
+            max-width: 600px;
+
+            opacity: 0;
+
+            animation: fadeUp 1s 0.4s forwards;
+        }
+
+        .buttons {
+            display: flex;
+
+            gap: 15px;
+
+            margin-top: 30px;
+
+            opacity: 0;
+
+            animation: fadeUp 1s 0.6s forwards;
+        }
+
+        .btn {
+            padding: 13px 25px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .primary {
+            background: #00e5ff;
+            color: #000;
+        }
+
+        .primary:hover {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 0 15px #00e5ff,
+                0 0 35px rgba(0,229,255,0.4);
+        }
+
+        .secondary {
+            color: #00e5ff;
+
+            border: 1px solid #00e5ff;
+        }
+
+        .secondary:hover {
+            background: #00e5ff;
+            color: #000;
+
+            transform: translateY(-4px);
+        }
+
+
+        /* ================= GENERAL SECTION ================= */
+
+        section {
+            padding: 110px 8%;
+        }
+
+        .title {
+            font-size: 38px;
+
+            margin-bottom: 50px;
+        }
+
+        .title span {
+            color: #00e5ff;
+        }
+
+
+        /* ================= SCROLL ANIMATION ================= */
+
+        .reveal {
+            opacity: 0;
+
+            transform: translateY(70px);
+
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+
+            transform: translateX(-70px);
+
+            transition: 0.8s ease;
+        }
+
+        .reveal-left.active {
+            opacity: 1;
+
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+
+            transform: translateX(70px);
+
+            transition: 0.8s ease;
+        }
+
+        .reveal-right.active {
+            opacity: 1;
+
+            transform: translateX(0);
+        }
+
+
+        /* ================= ABOUT ================= */
+
+        .about {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 60px;
+
+            align-items: center;
+        }
+
+        .about-text p {
+            color: #aaa;
+
+            line-height: 1.9;
+
+            font-size: 16px;
+        }
+
+        .info {
+            display: grid;
+
+            gap: 15px;
+        }
+
+        .info-box {
+            padding: 22px;
+
+            background: #111118;
+
+            border: 1px solid #22222d;
+
+            border-radius: 14px;
+
+            transition: 0.3s;
+        }
+
+        .info-box:hover {
+            transform: translateX(8px);
+
+            border-color: #00e5ff;
+
+            box-shadow:
+                0 0 25px rgba(0,229,255,0.08);
+        }
+
+        .info-box h3 {
+            color: #00e5ff;
+
+            margin-bottom: 7px;
+        }
+
+        .info-box p {
+            color: #aaa;
+        }
+
+
+        /* ================= SKILLS ================= */
+
+        .skills {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(150px, 1fr));
+
+            gap: 20px;
+        }
+
+        .skill {
+            padding: 30px 20px;
+
+            text-align: center;
+
+            background: #111118;
+
+            border: 1px solid #22222d;
+
+            border-radius: 15px;
+
+            transition:
+                transform 0.3s,
+                border 0.3s,
+                box-shadow 0.3s;
+        }
+
+        .skill:hover {
+            transform:
+                translateY(-10px)
+                scale(1.02);
+
+            border-color: #00e5ff;
+
+            box-shadow:
+                0 0 25px rgba(0,229,255,0.12);
+        }
+
+        .skill h3 {
+            color: #00e5ff;
+
+            margin-bottom: 8px;
+        }
+
+        .skill p {
+            color: #888;
+        }
+
+
+        /* ================= PROJECT ================= */
+
+        .projects {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 25px;
+        }
+
+        .project {
+            padding: 30px;
+
+            background: #111118;
+
+            border: 1px solid #22222d;
+
+            border-radius: 15px;
+
+            transition: 0.35s;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .project::before {
+            content: "";
+
+            position: absolute;
+
+            width: 100px;
+            height: 100px;
+
+            background: #00e5ff;
+
+            filter: blur(70px);
+
+            opacity: 0;
+
+            right: -30px;
+            top: -30px;
+
+            transition: 0.4s;
+        }
+
+        .project:hover::before {
+            opacity: 0.15;
+        }
+
+        .project:hover {
+            transform: translateY(-10px);
+
+            border-color: #00e5ff;
+        }
+
+        .project h3 {
+            color: #00e5ff;
+
+            margin-bottom: 12px;
+        }
+
+        .project p {
+            color: #aaa;
+
+            line-height: 1.7;
+        }
+
+
+        /* ================= CONTACT ================= */
+
+        .contact {
+            text-align: center;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(0,229,255,0.08),
+                    transparent 50%
+                );
+        }
+
+        .contact p {
+            color: #aaa;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+
+            padding: 30px;
+
+            border-top: 1px solid #22222d;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        /* ================= ANIMATION ================= */
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 17px 5%;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            nav {
+                gap: 12px;
+            }
+
+            nav a {
+                font-size: 11px;
+            }
+
+            .hero {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .hero h1 {
+                font-size: 52px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            section {
+                padding: 80px 5%;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .title {
+                font-size: 32px;
+            }
+
+            .buttons {
+                flex-direction: column;
+
+                width: 180px;
+            }
+
+            .btn {
+                text-align: center;
+            }
+
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header id="navbar">
+
+        <div class="logo">
+            FIZMATHEMATICS
+        </div>
+
+        <nav>
+
+            <a href="#home">Home</a>
+
+            <a href="#about">About</a>
+
+            <a href="#skills">Skills</a>
+
+            <a href="#projects">Projects</a>
+
+            <a href="#contact">Contact</a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- ================= HOME ================= -->
+
+    <section class="hero" id="home">
+
+        <div class="orb"></div>
+
+        <div class="hero-content">
+
+            <small>
+                👋 HALO, SAYA
+            </small>
+
+            <h1>
+                FIZ<span>MATHEMATICS</span>
+            </h1>
+
+            <p>
+                Pelajar RPL yang sedang membangun
+                kemampuan di dunia programming,
+                web development, desain, teknologi,
+                dan matematika.
+            </p>
+
+            <div class="buttons">
+
+                <a href="#projects" class="btn primary">
+                    🚀 Lihat Project
+                </a>
+
+                <a href="#contact" class="btn secondary">
+                    📩 Contact
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= ABOUT ================= -->
+
+    <section id="about">
+
+        <h2 class="title reveal">
+            About <span>Me</span>
+        </h2>
+
+        <div class="about">
+
+            <div class="about-text reveal-left">
+
+                <p>
+                    Saya adalah seorang pelajar yang sedang
+                    mempelajari Rekayasa Perangkat Lunak (RPL).
+                    Saya tertarik dengan dunia teknologi,
+                    programming, dan pembuatan website.
+                </p>
+
+                <br>
+
+                <p>
+                    Website ini dibuat sebagai portofolio untuk
+                    menampilkan project, kemampuan, dan perjalanan
+                    saya dalam belajar teknologi.
+                </p>
+
+            </div>
+
+
+            <div class="info reveal-right">
+
+                <div class="info-box">
+
+                    <h3>🎓 Status</h3>
+
+                    <p>
+                        Pelajar SMKN 4 PAYAKUMBUH
+                    </p>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <h3>💻 Jurusan</h3>
+
+                    <p>
+                        Rekayasa Perangkat Lunak
+                    </p>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <h3>🎯 Fokus</h3>
+
+                    <p>
+                        Web Development & Programming
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= SKILLS ================= -->
+
+    <section id="skills">
+
+        <h2 class="title reveal">
+            My <span>Skills</span>
+        </h2>
+
+
+        <div class="skills">
+
+            <div class="skill reveal">
+                <h3>HTML</h3>
+                <p>Web Structure</p>
+            </div>
+
+            <div class="skill reveal">
+                <h3>CSS</h3>
+                <p>Web Design</p>
+            </div>
+
+            <div class="skill reveal">
+                <h3>JavaScript</h3>
+                <p>Web Interaction</p>
+            </div>
+
+            <div class="skill reveal">
+                <h3>Python</h3>
+                <p>Database</p>
+            </div>
+
+            <div class="skill reveal">
+                <h3>PHP</h3>
+                <p>XAMPP/MySQL</p>
+            </div>
+
+            <div class="skill reveal">
+                <h3>C#</h3>
+                <p>Layanan .NET</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= PROJECTS ================= -->
+
+    <section id="projects">
+
+        <h2 class="title reveal">
+            My <span>Projects</span>
+        </h2>
+
+
+        <div class="projects">
+
+            <div class="project reveal">
+
+                <h3>
+                    🌐 Portfolio Website
+                </h3>
+
+                <p>
+                    Website portofolio pribadi menggunakan
+                    HTML, CSS, dan JavaScript.
+                </p>
+
+            </div>
+
+
+            <div class="project reveal">
+
+                <h3>
+                    📚 RPL Hub
+                </h3>
+
+                <p>
+                    Website berisi materi dan informasi
+                    untuk siswa RPL.
+                </p>
+
+            </div>
+
+
+            <div class="project reveal">
+
+                <h3>
+                    🧮 Math Project
+                </h3>
+
+                <p>
+                    Project edukasi matematika untuk membantu
+                    siswa memahami materi dengan lebih mudah.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= CONTACT ================= -->
+
+    <section class="contact" id="contact">
+
+        <h2 class="title reveal">
+            Contact <span>Me</span>
+        </h2>
+
+        <p class="reveal">
+            Tertarik untuk bekerja sama atau
+            ingin menghubungi saya?
+        </p>
+
+        <a            href="https://mail.google.com/mail/?view=cm&fs=1&to=mhafiz31710@gmail.com"
+   class="btn primary">
+    📩 Email Saya
+</a>
+
+    </section>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        © 2026 FIZMATHEMATICS
+
+    </footer>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        /* ================= SCROLL REVEAL ================= */
+
+        const reveals =
+            document.querySelectorAll(
+                ".reveal, .reveal-left, .reveal-right"
+            );
+
+
+        function revealOnScroll() {
+
+            const windowHeight =
+                window.innerHeight;
+
+
+            reveals.forEach(element => {
+
+                const elementTop =
+                    element.getBoundingClientRect().top;
+
+
+                if (elementTop <
+                    windowHeight - 100) {
+
+                    element.classList.add("active");
+
+                }
+
+            });
+
+        }
+
+
+        window.addEventListener(
+            "scroll",
+            revealOnScroll
+        );
+
+
+        /* Jalankan saat halaman pertama dibuka */
+
+        revealOnScroll();
+
+
+
+        /* ================= NAVBAR EFFECT ================= */
+
+        const navbar =
+            document.getElementById("navbar");
+
+
+        window.addEventListener(
+            "scroll",
+            () => {
+
+                if (window.scrollY > 50) {
+
+                    navbar.classList.add(
+                        "scrolled"
+                    );
+
+                } else {
+
+                    navbar.classList.remove(
+                        "scrolled"
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
